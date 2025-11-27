@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin Tác giả - Nguyễn Đức Hiền</title>
+    <!-- Tải Font Be Vietnam Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tải Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'], 
+                    },
+                    colors: {
+                        'primary': '#2563EB', // Blue-600
+                        'dark-blue': '#1E40AF', // Blue-800
+                        'filter-red': '#DC2626', // Màu đỏ cho tag
+                        'app-border': '#DBEAFE', // Màu viền app card
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #F9FAFB;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header (Sticky, Đồng bộ với index.html và about.html) -->
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Bên Trái: Icon & Tên Web -->
+            <div class="flex items-center space-x-3">
+                <!-- Icon của Nguyễn Khuyến Tool -->
+                <img src="images/icon.png" alt="Nguyễn Khuyến Tool Icon" class="w-8 h-8 rounded-md" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'text-3xl\'>🛠️</span>'" />
+                <h1 class="text-2xl font-extrabold tracking-tight">Nguyễn Khuyến Tool</h1>
+            </div>
+
+            <!-- Bên Phải: Navigation Links -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <!-- Liên kết Trang Chủ -->
+                <a href="index.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">Trang Chủ (Home)</a>
+                
+                <!-- Liên kết Giới Thiệu -->
+                <a href="about.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">
+                    Giới Thiệu
+                </a>
+                
+                <!-- Liên kết Thông tin & Liên hệ (Active) -->
+                <!-- Đã loại bỏ target="_blank" để mở trong cửa sổ hiện tại -->
+                <a href="info.html" class="bg-blue-700/50 transition duration-150 p-2 rounded-md font-bold">
+                    Thông tin & Liên hệ
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Nội dung chính -->
+    <main class="flex-grow max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
+            <h2 class="text-base font-bold text-dark-blue mb-6 border-b pb-3 border-primary/20">
+                Nguyễn Đức Hiền
+            </h2>
+            
+            <div class="space-y-6 text-gray-700">
+                
+                <!-- Vị trí/Chức vụ -->
+                <div class="flex items-start space-x-4">
+                    <span class="text-base text-primary mt-0.5">🧑</span>
+                    <div>
+                        <p class="font-semibold text-base">Giáo viên Vật Lí</p>
+                        <p class="font-semibold text-base">Trường THCS và THPT Nguyễn Khuyến Bình Dương</p>
+                    </div>
+                </div>
+
+                <!-- Liên hệ Facebook (Giữ target="_blank" vì đây là liên kết ngoài) -->
+                <div class="flex items-start space-x-4">
+                    <span class="text-base text-primary mt-0.5">📘</span>
+                    <div>
+                        <p class="font-semibold text-base">Trang cá nhân Facebook</p>
+                        <a href="https://www.facebook.com/nguyen.hien.828861/" target="_blank" class="text-primary hover:underline transition duration-150 break-words">
+                            https://www.facebook.com/nguyen.hien.828861/
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ghi chú thêm -->
+                <p class="pt-4 text-sm text-gray-500 italic border-t mt-4">
+                    Các ứng dụng web (WebApp) được phát triển nhằm mục đích hỗ trợ công tác giảng dạy, biên soạn tài liệu và tối ưu hóa quy trình làm việc.
+                </p>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer đồng bộ -->
+    <footer class="mt-auto py-4 border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto text-center text-gray-500 text-xs">
+            &copy; 2025 Nguyễn Khuyến Tool.
+        </div>
+    </footer>
+
+</body>
+</html>

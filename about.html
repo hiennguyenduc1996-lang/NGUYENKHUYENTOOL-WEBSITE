@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu Website - Hệ thống WebApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'], 
+                    },
+                    colors: {
+                        'primary': '#2563EB', // Blue-600
+                        'dark-blue': '#1E40AF', // Blue-800
+                        'filter-red': '#DC2626', 
+                        'app-border': '#DBEAFE', 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #F9FAFB;
+        }
+        /* Custom styles for app description lists */
+        .app-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .app-list li::before {
+            content: '✓';
+            color: #2563EB; /* Blue color */
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header (Sticky, Đồng bộ với index.html) -->
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Bên Trái: Icon & Tên Web -->
+            <div class="flex items-center space-x-3">
+                <!-- Icon của Nguyễn Khuyến Tool -->
+                <img src="images/icon.png" alt="Nguyễn Khuyến Tool Icon" class="w-8 h-8 rounded-md" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'text-3xl\'>🛠️</span>'" />
+                <h1 class="text-2xl font-extrabold tracking-tight">Nguyễn Khuyến Tool</h1>
+            </div>
+
+            <!-- Bên Phải: Navigation Links -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <!-- Liên kết Trang Chủ -->
+                <a href="index.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">Trang Chủ (Home)</a>
+                
+                <!-- Liên kết Giới Thiệu (Active) -->
+                <a href="about.html" class="bg-blue-700/50 transition duration-150 p-2 rounded-md font-bold">
+                    Giới Thiệu
+                </a>
+                
+                <!-- Liên kết Thông tin & Liên hệ -->
+                <a href="info.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">
+                    Thông tin & Liên hệ
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Nội dung chính -->
+    <main class="flex-grow max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
+            
+            <h2 class="text-3xl font-black text-dark-blue mb-6 flex items-center space-x-3">
+                🌐 Giới thiệu Hệ thống Thư viện WebApp
+            </h2>
+            
+            <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                Chào mừng bạn đến với **Hệ thống Thư viện WebApp** – một nền tảng được thiết kế để tập hợp và cung cấp các ứng dụng tiện ích trực tuyến trong cùng một nơi. Website chính hoạt động như một thư viện số, nơi bạn có thể truy cập nhanh chóng vào các công cụ mạnh mẽ hỗ trợ cho việc biên soạn tài liệu, xử lý dữ liệu và tạo hình ảnh minh họa.
+            </p>
+
+            <h3 class="text-2xl font-bold text-dark-blue mb-5 mt-8 border-b pb-2 border-primary/20">
+                Các WebApp chính
+            </h3>
+
+            <!-- APP 1: Biên soạn tài liệu Tiếng Anh -->
+            <div class="mb-8 border p-5 rounded-lg border-primary/30 bg-blue-50">
+                <h4 class="text-xl font-extrabold text-primary mb-3 flex items-center space-x-2">
+                    <span class="text-2xl">📘</span> <span>1. App Biên Soạn Tài Liệu Tiếng Anh</span>
+                </h4>
+                <p class="text-gray-600 mb-3">Ứng dụng giúp giáo viên, học sinh và người học tiếng Anh soạn thảo nội dung dễ dàng, nhanh chóng. Các chức năng chính:</p>
+                <ul class="app-list text-gray-700 ml-4">
+                    <li>Tạo bài tập tiếng Anh theo từng chủ đề.</li>
+                    <li>Sinh đề thi hoặc worksheet tự động.</li>
+                    <li>Kiểm tra ngữ pháp, diễn đạt và gợi ý chỉnh sửa.</li>
+                    <li>Tạo câu hỏi trắc nghiệm, tự luận hoặc điền từ.</li>
+                    <li>Xuất file Word/PDF hoặc copy nội dung ra ngoài.</li>
+                </ul>
+            </div>
+
+            <!-- APP 2: Chuyển đổi tài liệu PDF, Images sang Word và Latex -->
+            <div class="mb-8 border p-5 rounded-lg border-primary/30 bg-blue-50">
+                <h4 class="text-xl font-extrabold text-primary mb-3 flex items-center space-x-2">
+                    <span class="text-2xl">📄</span> <span>2. App Chuyển Đổi PDF/Ảnh Sang Word & LaTeX</span>
+                </h4>
+                <p class="text-gray-600 mb-3">Công cụ chuyển đổi tài liệu mạnh mẽ, hỗ trợ nhiều định dạng giúp tối ưu hóa quá trình biên tập:</p>
+                <ul class="app-list text-gray-700 ml-4">
+                    <li>Chuyển PDF sang Word (.docx) giữ nguyên cấu trúc.</li>
+                    <li>Chuyển hình ảnh (PNG, JPG…) sang Word.</li>
+                    <li>Nhận dạng văn bản (OCR) nhanh và chính xác.</li>
+                    <li>Xuất tài liệu sang định dạng LaTeX.</li>
+                    <li>Tự động làm sạch và sắp xếp lại nội dung sau khi chuyển đổi.</li>
+                </ul>
+            </div>
+
+            <!-- APP 3: Vẽ lại hình ảnh minh họa từ hình ảnh có sẵn -->
+            <div class="mb-8 border p-5 rounded-lg border-primary/30 bg-blue-50">
+                <h4 class="text-xl font-extrabold text-primary mb-3 flex items-center space-x-2">
+                    <span class="text-2xl">🖼️</span> <span>3. App Vẽ Lại Hình Minh Họa Từ Ảnh Có Sẵn</span>
+                </h4>
+                <p class="text-gray-600 mb-3">Ứng dụng dành cho nhu cầu tạo hình minh họa rõ ràng, đẹp mắt hơn từ tài liệu gốc:</p>
+                <ul class="app-list text-gray-700 ml-4">
+                    <li>Vẽ lại sơ đồ, hình học, hình vật lý, mạch điện… bằng AI.</li>
+                    <li>Chuyển hình ảnh chất lượng thấp thành hình vector/sạch nét.</li>
+                    <li>Tự động nhận diện và tái tạo đường thẳng, ký hiệu, văn bản.</li>
+                    <li>Tùy chọn xuất hình sang PNG, SVG hoặc TikZ/LaTeX.</li>
+                    <li>Tối ưu cho giáo viên và người làm tài liệu học thuật.</li>
+                </ul>
+            </div>
+
+            <p class="text-base text-center pt-6 text-gray-500 border-t mt-6 italic">
+                👉 Khi người dùng nhấp vào các thẻ ứng dụng ở trang chủ, hệ thống sẽ chuyển đến liên kết App tương ứng.
+            </p>
+
+        </div>
+    </main>
+
+    <!-- Footer đồng bộ -->
+    <footer class="mt-auto py-4 border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto text-center text-gray-500 text-xs">
+            &copy; 2025 Nguyễn Khuyến Tool.
+        </div>
+    </footer>
+
+</body>
+</html>

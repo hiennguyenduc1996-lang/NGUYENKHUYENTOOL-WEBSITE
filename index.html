@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Khuyến Tool | Thư viện Ứng dụng Web</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'], 
+                    },
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#059669',
+                        background: '#F9FAFB',
+                        'filter-red': '#DC2626',
+                        'dark-blue': '#1E40AF',
+                        'app-border': '#DBEAFE',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #F9FAFB;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            border-color: #2563EB;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .tag-active {
+            background-color: #DC2626;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.5);
+        }
+
+        .title-box {
+            border: 1px solid #E5E7EB;
+            background-color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1),
+                        0 1px 2px rgba(0,0,0,0.06);
+            margin-bottom: 1.5rem;
+        }
+
+        .main-title {
+             color: #1E40AF;
+             font-weight: 900;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="images/icon.png" alt="Nguyễn Khuyến Tool Icon"
+                     class="w-8 h-8 rounded-md"
+                     onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=\'text-3xl\'>🛠️</span>'">
+                <h1 class="text-2xl font-extrabold tracking-tight">Nguyễn Khuyến Tool</h1>
+            </div>
+
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" class="bg-blue-700/50 transition duration-150 p-2 rounded-md font-bold">Trang Chủ</a>
+                <a href="about.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">Giới Thiệu</a>
+                <a href="info.html" class="hover:text-blue-200 transition duration-150 p-2 rounded-md">Thông tin & Liên hệ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <div class="mb-12 p-6 bg-white rounded-xl shadow-lg border border-gray-100">
+            
+            <div class="mb-4">
+                <h3 class="text-xl uppercase main-title">Tìm kiếm Ứng dụng</h3>
+            </div>
+            
+            <input type="text" id="search-input" placeholder="Tìm kiếm theo tên..."
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                          focus:ring-primary focus:border-primary text-base transition duration-150">
+
+            <div class="mt-4 pt-4 border-t border-gray-100">
+                <span class="text-sm font-semibold text-gray-600 mr-3">Lọc theo Môn học:</span>
+                <div id="subject-filters" class="flex flex-wrap gap-3 mt-2"></div>
+            </div>
+        </div>
+
+        <div class="title-box">
+            <h2 class="text-base uppercase main-title">
+                Ứng dụng hiện tại (Lọc: 
+                <span id="current-filter-display" class="text-filter-red font-extrabold">Tất cả</span>
+                )
+            </h2>
+        </div>
+
+        <div id="app-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
+
+    <footer class="mt-12 py-6 border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto text-center text-gray-500 text-sm">
+            &copy; 2025 Nguyễn Khuyến Tool. Được triển khai trên GitHub Pages.
+        </div>
+    </footer>
+
+    <script>
+        // ====== Dữ liệu ứng dụng (đã thêm textColor: xanh dương đậm) ======
+        const appData = [
+            {
+                name: "Biên soạn tài liệu Tiếng Anh",
+                description: "Công cụ hỗ trợ tạo và biên soạn các tài liệu học tập, đề thi Tiếng Anh nhanh chóng.",
+                url: "https://nk12tienganh.vercel.app/",
+                icon: "images/iconapp1.png",
+                color: "bg-primary",
+                subject: "Anh",
+                textColor: "text-dark-blue"
+            },
+            {
+                name: "Chuyển đổi tài liệu PDF, Images sang Word và Latex",
+                description: "Chuyển đổi tài liệu PDF và hình ảnh sang định dạng Word hoặc LaTeX chỉnh sửa.",
+                url: "#",
+                icon: "images/iconapp2.png",
+                color: "bg-orange-500",
+                subject: "Công cụ",
+                textColor: "text-dark-blue"
+            },
+            {
+                name: "Vẽ lại hình ảnh minh họa từ hình ảnh có sẵn",
+                description: "Dùng AI để tái tạo hình minh họa, biểu đồ, sơ đồ với độ rõ nét cao.",
+                url: "#",
+                icon: "images/iconapp3.png",
+                color: "bg-green-500",
+                subject: "Sáng tạo",
+                textColor: "text-dark-blue"
+            },
+        ];
+
+        const appContainer = document.getElementById('app-container');
+        const searchInput = document.getElementById('search-input');
+        const subjectFiltersContainer = document.getElementById('subject-filters');
+        const currentFilterDisplay = document.getElementById('current-filter-display');
+        
+        let currentSubjectFilter = 'Tất cả';
+        const subjects = ['Tất cả', ...new Set(appData.map(app => app.subject))].filter(s => s);
+
+        // ====== Tạo thẻ ứng dụng ======
+        function createAppCard(app) {
+            const card = document.createElement('a');
+            card.href = app.url;
+            card.target = "_blank";
+            card.className =
+                `app-card block p-5 bg-white rounded-xl shadow-lg transition duration-300 border-2 border-app-border`;
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'flex items-center space-x-3 mb-3';
+
+            const iconDiv = document.createElement('div');
+            iconDiv.className =
+                `${app.color} w-10 h-10 flex items-center justify-center rounded-full text-xl shadow-md overflow-hidden`;
+
+            const iconImg = document.createElement('img');
+            iconImg.src = app.icon;
+            iconImg.alt = app.name + " Icon";
+            iconImg.className = 'w-full h-full object-cover';
+
+            iconImg.onerror = function() {
+                this.style.display = 'none';
+                const fallbackText = document.createElement('span');
+                fallbackText.textContent = app.subject.charAt(0);
+                fallbackText.className = 'text-white font-bold text-xl';
+                iconDiv.appendChild(fallbackText);
+            };
+
+            iconDiv.appendChild(iconImg);
+
+            const nameH3 = document.createElement('h3');
+            nameH3.className = `text-lg font-bold ${app.textColor}`;
+            nameH3.textContent = app.name;
+
+            headerDiv.appendChild(iconDiv);
+            headerDiv.appendChild(nameH3);
+
+            const descriptionP = document.createElement('p');
+            descriptionP.className = `text-sm mt-2 ${app.textColor}`;
+            descriptionP.textContent = app.description;
+
+            const subjectTag = document.createElement('span');
+            subjectTag.className =
+                `inline-block bg-blue-100 text-dark-blue text-xs font-semibold px-2 py-1 rounded-full mt-3`;
+            subjectTag.textContent = app.subject;
+
+            card.appendChild(headerDiv);
+            card.appendChild(descriptionP);
+            card.appendChild(subjectTag);
+
+            return card;
+        }
+
+        function filterAndRender() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            let filteredApps = appData.filter(app =>
+                currentSubjectFilter === 'Tất cả' || app.subject === currentSubjectFilter
+            );
+
+            if (searchTerm) {
+                filteredApps = filteredApps.filter(app =>
+                    app.name.toLowerCase().includes(searchTerm) ||
+                    app.description.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            appContainer.innerHTML = '';
+
+            if (filteredApps.length === 0) {
+                appContainer.innerHTML =
+                    '<p class="text-center text-gray-500 col-span-full py-8">Không tìm thấy ứng dụng nào phù hợp.</p>';
+            } else {
+                filteredApps.forEach(app => {
+                    appContainer.appendChild(createAppCard(app));
+                });
+            }
+
+            currentFilterDisplay.textContent = currentSubjectFilter;
+            renderSubjectFilters();
+        }
+
+        function getSubjectButtonClass(isActive) {
+            const base = 'px-3 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer transition';
+            return isActive
+                ? `${base} tag-active`
+                : `${base} bg-gray-200 text-gray-700 hover:bg-gray-300`;
+        }
+
+        function setupSubjectFilters() {
+            subjectFiltersContainer.innerHTML = '';
+            subjects.forEach(subject => {
+                const btn = document.createElement('button');
+                btn.textContent = subject;
+                btn.dataset.subject = subject;
+                btn.className = getSubjectButtonClass(subject === currentSubjectFilter);
+
+                btn.onclick = () => {
+                    currentSubjectFilter = subject;
+                    searchInput.value = '';
+                    filterAndRender();
+                };
+
+                subjectFiltersContainer.appendChild(btn);
+            });
+        }
+
+        function renderSubjectFilters() {
+            document.querySelectorAll('#subject-filters button').forEach(btn => {
+                btn.className = getSubjectButtonClass(btn.dataset.subject === currentSubjectFilter);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupSubjectFilters();
+            filterAndRender();
+            searchInput.addEventListener('input', filterAndRender);
+        });
+    </script>
+
+</body>
+</html>
