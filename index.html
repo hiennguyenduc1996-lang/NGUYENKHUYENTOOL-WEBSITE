@@ -119,7 +119,6 @@
     </footer>
 
     <script>
-        // ====== Dữ liệu ứng dụng (đã thêm textColor: xanh dương đậm) ======
         const appData = [
             {
                 name: "Biên soạn tài liệu Tiếng Anh",
@@ -149,9 +148,9 @@
                 textColor: "text-dark-blue"
             },
             {
-                name: "Chấm bài NK12",
-                description: "Chuẩn hóa bảng đáp án và phân tích câu sai",
-                url: "https://congcunk12chambai.vercel.app/",
+                name: "Tra cứu Xếp hạng ĐGNL VACT 2026",
+                description: "Hệ thống tra cứu thứ hạng, phân tích phổ điểm thi Đánh giá năng lực ĐHQG TP.HCM.",
+                url: "tracuuxephang.html",
                 icon: "images/iconapp4.png",
                 color: "bg-primary",
                 subject: "Công cụ",
@@ -185,7 +184,6 @@
         let currentSubjectFilter = 'Tất cả';
         const subjects = ['Tất cả', ...new Set(appData.map(app => app.subject))].filter(s => s);
 
-        // ====== Tạo thẻ ứng dụng ======
         function createAppCard(app) {
             const card = document.createElement('a');
             card.href = app.url;
@@ -307,18 +305,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
