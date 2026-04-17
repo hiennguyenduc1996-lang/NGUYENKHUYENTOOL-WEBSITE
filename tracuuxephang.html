@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Xếp Hạng ĐGNL VACT 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-blue: #007bff;
+            --light-blue: #f0f7ff;
+            --dark-blue: #003d80;
+            --accent-gold: #ffca28;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .hero-banner {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .hero-banner h1 {
+            margin: 0 0 30px 0;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .stat-card h4 { margin: 0; font-size: 0.8rem; opacity: 0.9; font-weight: 400; }
+        .stat-card div { font-size: 1.4rem; font-weight: bold; margin-top: 5px; }
+        .gold { color: var(--accent-gold); }
+
+        .container {
+            max-width: 1100px;
+            margin: -25px auto 50px;
+            padding: 0 20px;
+        }
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        /* Search Box */
+        .search-area { text-align: center; }
+        .input-wrapper {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        input {
+            padding: 12px 20px;
+            width: 220px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus { border-color: var(--secondary-blue); }
+        button {
+            padding: 12px 30px;
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { background: var(--dark-blue); }
+
+        /* Results */
+        .result-box {
+            display: none;
+            background: var(--light-blue);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-blue);
+            text-align: left;
+            margin-top: 20px;
+        }
+        .res-line { margin: 8px 0; font-size: 1.1rem; }
+        .bold-blue { color: var(--primary-blue); font-weight: bold; }
+
+        /* Chart */
+        .chart-container { height: 400px; position: relative; }
+    </style>
+</head>
+<body>
+
+<div class="hero-banner">
+    <h1>BẢNG XẾP HẠNG ĐIỂM THI ĐÁNH GIÁ NĂNG LỰC <br> ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH VACT ĐỢT 1</h1>
+    <div class="stats-grid">
+        <div class="stat-card"><h4>Tổng thí sinh</h4><div>133,488</div></div>
+        <div class="stat-card"><h4>Điểm trung bình</h4><div>648.5</div></div>
+        <div class="stat-card"><h4>Điểm cao nhất</h4><div class="gold">1,098</div></div>
+        <div class="stat-card"><h4>Trên 1000</h4><div>391</div></div>
+        <div class="stat-card"><h4>900 - 1000</h4><div>7,617</div></div>
+        <div class="stat-card"><h4>800 - 900</h4><div>21,449</div></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card search-area">
+        <h3 style="margin-top:0">Tra cứu vị trí của bạn</h3>
+        <div class="input-wrapper">
+            <input type="number" id="scoreInp" placeholder="Nhập điểm thi...">
+            <button onclick="checkScore()">Tra cứu</button>
+        </div>
+        <div id="resBox" class="result-box">
+            <div class="res-line">Khoảng điểm của bạn: <span id="rRange" class="bold-blue"></span>, thuộc <span id="rTop" class="bold-blue"></span>.</div>
+            <div class="res-line">Số lượng bạn cùng khoảng điểm: <span id="rSame" class="bold-blue"></span> học sinh</div>
+            <div class="res-line">Số lượng bạn điểm cao hơn: <span id="rHigher" class="bold-blue"></span> học sinh</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="color:var(--primary-blue); margin-top:0">Phổ điểm chi tiết</h3>
+        <div class="chart-container">
+            <canvas id="mainChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DATA GỐC - Đã điền khuyết khoảng 1061-1080 để biểu đồ không bị lỗi nhảy cóc
+    const fullData = [
+        {"KhoangDiem":"0–240","SoLuong":1},{"KhoangDiem":"241–260","SoLuong":67},{"KhoangDiem":"261–280","SoLuong":88},{"KhoangDiem":"281–300","SoLuong":135},{"KhoangDiem":"301–320","SoLuong":206},{"KhoangDiem":"321–340","SoLuong":300},{"KhoangDiem":"341–360","SoLuong":468},{"KhoangDiem":"361–380","SoLuong":683},{"KhoangDiem":"381–400","SoLuong":968},{"KhoangDiem":"401–420","SoLuong":1397},{"KhoangDiem":"421–440","SoLuong":1667},{"KhoangDiem":"441–460","SoLuong":2347},{"KhoangDiem":"461–480","SoLuong":2968},{"KhoangDiem":"481–500","SoLuong":3362},{"KhoangDiem":"501–520","SoLuong":3900},{"KhoangDiem":"521–540","SoLuong":4664},{"KhoangDiem":"541–560","SoLuong":5108},{"KhoangDiem":"561–580","SoLuong":5699},{"KhoangDiem":"581–600","SoLuong":6018},{"KhoangDiem":"601–620","SoLuong":6286},{"KhoangDiem":"621–640","SoLuong":6657},{"KhoangDiem":"641–660","SoLuong":6828},{"KhoangDiem":"661–680","SoLuong":6851},{"KhoangDiem":"681–700","SoLuong":6750},{"KhoangDiem":"701–720","SoLuong":6674},{"KhoangDiem":"721–740","SoLuong":6438},{"KhoangDiem":"741–760","SoLuong":6216},{"KhoangDiem":"761–780","SoLuong":5802},{"KhoangDiem":"781–800","SoLuong":5483},{"KhoangDiem":"801–820","SoLuong":5217},{"KhoangDiem":"821–840","SoLuong":4831},{"KhoangDiem":"841–860","SoLuong":4384},{"KhoangDiem":"861–880","SoLuong":3807},{"KhoangDiem":"881–900","SoLuong":3210},{"KhoangDiem":"901–920","SoLuong":2705},{"KhoangDiem":"921–940","SoLuong":1987},{"KhoangDiem":"941–960","SoLuong":1365},{"KhoangDiem":"961–980","SoLuong":950},{"KhoangDiem":"981–1000","SoLuong":610},{"KhoangDiem":"1001–1020","SoLuong":290},{"KhoangDiem":"1021–1040","SoLuong":90},{"KhoangDiem":"1041–1060","SoLuong":10},
+        {"KhoangDiem":"1061–1080","SoLuong":0}, // Khoảng này bị thiếu trong data gốc
+        {"KhoangDiem":"1081–1100","SoLuong":1}
+    ];
+
+    const labels = fullData.map(d => d.KhoangDiem);
+    const counts = fullData.map(d => d.SoLuong);
+    const total = 133488;
+
+    const ctx = document.getElementById('mainChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Số lượng thí sinh',
+                data: counts,
+                backgroundColor: 'rgba(0, 86, 179, 0.3)',
+                borderColor: 'var(--primary-blue)',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { font: { size: 10 }, rotation: 45 } },
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    function checkScore() {
+        const score = parseInt(document.getElementById('scoreInp').value);
+        if (isNaN(score)) return;
+
+        let idx = -1;
+        labels.forEach((l, i) => {
+            const p = l.split('–').map(n => parseInt(n));
+            if (score >= p[0] && score <= p[1]) idx = i;
+        });
+
+        if (idx !== -1) {
+            let higher = 0;
+            for (let j = idx + 1; j < counts.length; j++) higher += counts[j];
+            
+            // Tính Top % (Số người bằng hoặc cao hơn / Tổng số người)
+            const topP = (((higher + counts[idx]) / total) * 100).toFixed(2);
+
+            document.getElementById('rRange').innerText = labels[idx];
+            document.getElementById('rTop').innerText = `top ${topP}%`;
+            document.getElementById('rSame').innerText = counts[idx].toLocaleString();
+            document.getElementById('rHigher').innerText = higher.toLocaleString();
+            document.getElementById('resBox').style.display = 'block';
+
+            // Cập nhật biểu đồ
+            myChart.data.datasets[0].backgroundColor = labels.map((_, i) => i === idx ? 'var(--dark-blue)' : 'rgba(0, 86, 179, 0.3)');
+            myChart.update();
+        } else {
+            alert("Điểm không hợp lệ!");
+        }
+    }
+</script>
+</body>
+</html>
